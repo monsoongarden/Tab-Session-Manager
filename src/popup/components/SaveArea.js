@@ -7,6 +7,8 @@ import TriangleIcon from "../icons/triangle.svg";
 import "../styles/SaveArea.scss";
 import "../styles/InputForm.scss";
 
+import { sendTagAddMessage,  sendTagRemoveMessage } from "../actions/controlSessions";
+
 export default class SaveArea extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +45,8 @@ export default class SaveArea extends Component {
     const input = this.props.saveAreaRef.current;
     const name = input.value;
     const defaultBehavior = getSettings("saveButtonBehavior");
-    this.props.saveSession(name, defaultBehavior);
+    await session = this.props.saveSession(name, defaultBehavior);
+    sendTagAddMessage(session.id, "_tracking");
   };
 
   openMenu = e => {
